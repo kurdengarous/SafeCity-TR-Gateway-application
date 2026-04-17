@@ -86,52 +86,59 @@ class _DovizScreenContent extends StatelessWidget {
       color: AppColors.currency.withOpacity(0.1),
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: AppColors.currency.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(Icons.monetization_on, color: AppColors.currency, size: 32),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    gold.name,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: AppColors.currency.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  const SizedBox(height: 4),
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 4,
+                  child: const Icon(Icons.monetization_on, color: AppColors.currency, size: 32),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Alış: ${gold.buy.toStringAsFixed(2)}',
-                        style: const TextStyle(fontSize: 14),
+                        gold.name,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        'Satış: ${gold.sell.toStringAsFixed(2)}',
-                        style: const TextStyle(fontSize: 14),
+                      const SizedBox(height: 4),
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 4,
+                        children: [
+                          Text(
+                            'Alış: ${gold.buy.toStringAsFixed(2)}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                          Text(
+                            'Satış: ${gold.sell.toStringAsFixed(2)}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
+                IconButton(
+                  key: const Key('doviz_favori_button'),
+                  icon: Icon(
+                    provider.isFavorite(gold.code, context) ? Icons.star : Icons.star_border,
+                    color: provider.isFavorite(gold.code, context) ? Colors.amber : null,
+                  ),
+                  onPressed: () => provider.toggleFavorite(gold.code, context),
+                ),
               ),
             ),
-            IconButton(
-              key: const Key('doviz_favori_button'),
-              icon: Icon(
-                provider.isFavorite(gold.code, context) ? Icons.star : Icons.star_border,
-                color: provider.isFavorite(gold.code, context) ? Colors.amber : null,
-              ),
-              onPressed: () => provider.toggleFavorite(gold.code, context),
-            ),
+            const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
@@ -172,54 +179,61 @@ class _DovizScreenContent extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: AppColors.currency.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(
-                  currency.code,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: AppColors.currency.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
                   ),
+                  child: Center(
+                    child: Text(
+                      currency.code,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        currency.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 4),
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 4,
+                        children: [
+                          Text('Alış: ${currency.buy.toStringAsFixed(2)}'),
+                          Text('Satış: ${currency.sell.toStringAsFixed(2)}'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(
+                    provider.isFavorite(currency.code, context) ? Icons.star : Icons.star_border,
+                    color: provider.isFavorite(currency.code, context) ? Colors.amber : null,
+                    size: 20,
+                  ),
+                  onPressed: () => provider.toggleFavorite(currency.code, context),
                 ),
               ),
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    currency.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 4),
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 4,
-                    children: [
-                      Text('Alış: ${currency.buy.toStringAsFixed(2)}'),
-                      Text('Satış: ${currency.sell.toStringAsFixed(2)}'),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            IconButton(
-              icon: Icon(
-                provider.isFavorite(currency.code, context) ? Icons.star : Icons.star_border,
-                color: provider.isFavorite(currency.code, context) ? Colors.amber : null,
-                size: 20,
-              ),
-              onPressed: () => provider.toggleFavorite(currency.code, context),
-            ),
+            const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
